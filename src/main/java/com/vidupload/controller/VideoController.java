@@ -1,11 +1,18 @@
 package com.vidupload.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.List;
 
+import com.vidupload.dtos.UpdateModel;
+import com.vidupload.exception.ControllerException;
+import com.vidupload.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.util.StreamUtils;
@@ -113,11 +120,36 @@ from an InputStream to an OutputStream. This method is useful in various scenari
 such as file uploads, downloading files, or any other operation involving data streams
 .*/
 
+	//Delete videos By the given id
 	@DeleteMapping("{id}")
-	public ResponseEntity<Void> deleteVideo(@PathVariable Long id){
-		videoService.deleteVideos(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public String deleteVideo(@PathVariable Long id){
+		Optional<Video> vid = videoRepository.findById(id);
+		Path exactPath = Paths.get(path + File.separator + vid.get().getVideoName());
+        System.out.println(exactPath);
+
+		try{
+			Files.deleteIfExists(exactPath);
+		}
+		catch(Exception e1){
+			e1.getMessage();
+			System.out.println(e1.getMessage()+"video can't be deleted");
+		}
+		this.videoService.deleteVideos(id);
+
+		return "Video deleted successfully...";
 	}
+
+	@PutMapping("/update/{id}")
+	public ResponseEntity<Video> setVideoData(@RequestBody Video updateModel,@PathVariable Long id){
+		try{
+			videoService.updatePost(updateModel,id);
+			return new ResponseEntity<Video>(updateModel,HttpStatus.OK);
+		}
+		catch(Exception e){
+			throw new ControllerException("404","user id is not found");
+		}
+	}
+
 
 	// Exception handler for MissingServletRequestPartException
 	@ExceptionHandler(MissingServletRequestPartException.class)

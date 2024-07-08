@@ -7,7 +7,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "videoprocess")
 public class Video {
@@ -30,75 +38,19 @@ public class Video {
 	@Column(name = "added_date")
 	private LocalDateTime addedDate;
 
-	// Constructors and toString() method as shown in your code
+
+	private Boolean isPremium;
 
 	@Override
 	public String toString() {
-		return "Video [id=" + id + ", title=" + title + ", description=" + description + ", tags=" + tags
-				+ ", videoName=" + videoName + ", addedDate=" + addedDate + "]";
+		return "Video{" +
+				"id=" + id +
+				", title='" + title + '\'' +
+				", description='" + description + '\'' +
+				", tags='" + tags + '\'' +
+				", videoName='" + videoName + '\'' +
+				", addedDate=" + addedDate +
+				", isPremium=" + isPremium +
+				'}';
 	}
-
-	// Constructor with all fields except 'id'
-	public Video(String title, String description, String tags, String videoName, LocalDateTime addedDate) {
-		this.title = title;
-		this.description = description;
-		this.tags = tags;
-		this.videoName = videoName;
-		this.addedDate = addedDate;
-	}
-
-	public Video() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
-
-	public String getVideoName() {
-		return videoName;
-	}
-
-	public void setVideoName(String videoName) {
-		this.videoName = videoName;
-	}
-
-	public LocalDateTime getAddedDate() {
-		return addedDate;
-	}
-
-	public void setAddedDate(LocalDateTime addedDate) {
-		this.addedDate = addedDate;
-	}
-
-
 }

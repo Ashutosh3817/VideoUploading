@@ -39,11 +39,7 @@ public class FileServiceImpl implements FileService{
 
 		//create directory where we save the file
 
-
-
 		File f = new File(path);
-
-
 
 		//if directory exist then we won't create the directory else we create the directory
 

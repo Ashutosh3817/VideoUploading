@@ -41,6 +41,7 @@ public class VideoServiceImpl implements VideoService {
 		existingVideo.setDescription(video.getDescription());
 		existingVideo.setTags(video.getTags());
 		existingVideo.setVideoName(video.getVideoName());
+		existingVideo.setIsPremium(video.getIsPremium());
 		return videoRepository.save(existingVideo);
 	}
 
