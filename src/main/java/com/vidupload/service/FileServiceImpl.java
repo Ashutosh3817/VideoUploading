@@ -66,8 +66,6 @@ public class FileServiceImpl implements FileService{
 		InputStream inputStream = new FileInputStream(fullPath);
 		return inputStream;
 
-
-
 	}
 
 
