@@ -48,7 +48,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtProvider.generateToken(authentication);
-        AuthResponse res = new AuthResponse(jwt, "signup success");
+        AuthResponse res = new AuthResponse(jwt, "signup success",user.getEmail());
 
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
@@ -60,7 +60,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtProvider.generateToken(authentication);
-        AuthResponse res = new AuthResponse(jwt, "signin success");
+        AuthResponse res = new AuthResponse(jwt, "signin success",loginRequest.getEmail());
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
